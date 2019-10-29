@@ -66,21 +66,36 @@ $(document).ready(function(){
         changeDot($(".atual").index());
     }
     
+    function playSlider(){
+        autoplay = setInterval(proximo, 1000);
+    }
+    function stopSlider(){
+        clearInterval(autoplay);
+    }
     
     $(".banner-container").mouseenter(function(){
         $(".banner-nav").fadeIn("fast");
+        stopSlider();
     });
     $(".banner-container").mouseleave(function(){
         $(".banner-nav").fadeOut("fast");
+        playSlider();
     });
     
-    $("#anterior").click(anterior);    
-    $("#proximo").click(proximo);
+    $("#anterior").click(function(e){
+        e.preventDefault();
+        anterior();
+    });    
+    $("#proximo").click(function(e){
+        e.preventDefault();
+        proximo();
+    });
     $(".banner-dots input").click(function(event){
         var id = $(this).index();
         $(this).prop("checked",true);
         irPara(id);        
     });
     
-    setInterval(proximo, 5000);
+    playSlider();
+    
 });
